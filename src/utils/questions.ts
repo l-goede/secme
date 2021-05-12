@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-import { Command } from '../types';
+import { Command, Credential } from '../types';
 export const askForMainPassword = async (): Promise<string> => {
   const answers = await inquirer.prompt<{ mainPassword: string }>([
     {
@@ -24,26 +24,36 @@ export const chooseCommand = async (): Promise<Command> => {
   return answers.command;
 };
 
-// export const askForNewCredential = async (): Promise<string> => {
-//   const newCredential = await inquirer.prompt<{ service: string }>([
-//     {
-//       type: 'expand',
-//       name: 'credential',
-//       message: 'Enter credential',
-//     },
-//     {
-//       type: 'expand',
-//       name: 'username',
-//       message: 'Enter username',
-//     },
-//     {
-//       type: 'password',
-//       name: 'password',
-//       message: 'Enter password',
-//     },
-//   ]);
-//   return newCredential.service;
-// };
+export const chooseService = async (services: string[]): Promise<string> => {
+  const answers = await inquirer.prompt<{ service: string }>({
+    type: 'list',
+    name: 'service',
+    message: 'Please choose service',
+    choices: services,
+  });
+  return answers.service;
+};
+
+export const addNewCredential = async (): Promise<Credential> => {
+  const answers = await inquirer.prompt<Credential>([
+    {
+      type: 'input',
+      name: 'credential',
+      message: 'Enter new credential',
+    },
+    {
+      type: 'input',
+      name: 'username',
+      message: 'Enter username',
+    },
+    {
+      type: 'password',
+      name: 'password',
+      message: 'Enter password',
+    },
+  ]);
+  return answers;
+};
 
 // export const listCredentialServices = async (): Promise<string> => {
 //     const listCredential = await inquirer.prompt<{ list: string }>({
