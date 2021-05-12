@@ -54,16 +54,3 @@ export const addNewCredential = async (): Promise<Credential> => {
   ]);
   return answers;
 };
-
-// export const listCredentialServices = async (): Promise<string> => {
-//     const listCredential = await inquirer.prompt<{ list: string }>({
-//       type:list
-//       name: 'credentials',
-//       choices: [
-//         { name: 'GitHub, value: 'github'},
-//         { name: 'Google', value: 'google },
-//         {name:"Yahoo", value:"yahoo"}
-//       ],
-//     });
-//     return listCredential.command;
-//   };

@@ -1,12 +1,13 @@
 import { printPassword } from './utils/messages';
 import {
-  addNewCredential,
+  askForCredential,
   askForMainPassword,
   chooseCommand,
   chooseService,
 } from './utils/questions';
 import { isMainPasswordValid } from './utils/validation';
 
+// Further possibly version
 // const mainPassword = await askForMainPassword();
 // if (!isMainPasswordValid(mainPassword)) {
 //   console.log('Is invalid');
@@ -16,6 +17,7 @@ import { isMainPasswordValid } from './utils/validation';
 // }
 // start();
 
+// "While" solution
 const start = async () => {
   let mainPassword = await askForMainPassword();
   while (!isMainPasswordValid(mainPassword)) {
@@ -34,7 +36,7 @@ const start = async () => {
       break;
     case 'add':
       {
-        const newCredential = await addNewCredential();
+        const newCredential = await askForCredential();
         console.log(newCredential);
       }
       break;
