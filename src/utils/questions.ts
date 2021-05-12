@@ -34,7 +34,7 @@ export const chooseService = async (services: string[]): Promise<string> => {
   return answers.service;
 };
 
-export const addNewCredential = async (): Promise<Credential> => {
+export const askForCredential = async (): Promise<Credential> => {
   const answers = await inquirer.prompt<Credential>([
     {
       type: 'input',
