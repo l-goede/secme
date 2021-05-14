@@ -1,5 +1,6 @@
 import inquirer from 'inquirer';
 import { Command, Credential } from '../types';
+
 export const askForMainPassword = async (): Promise<string> => {
   const answers = await inquirer.prompt<{ mainPassword: string }>([
     {

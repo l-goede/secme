@@ -13,12 +13,13 @@ export const readCredentials = async (): Promise<Credential[]> => {
 };
 
 export const writeCredentials = async (
-  newCredential: Credential
+  newCredential: Credential,
+  mainPassword: string
 ): Promise<void> => {
   const oldCredential: Credential[] = await readCredentials();
   newCredential.password = CryptoJS.AES.encrypt(
     newCredential.password,
-    'test'
+    mainPassword
   ).toString();
 
   const newDB: DB = { credentials: [...oldCredential, newCredential] };
