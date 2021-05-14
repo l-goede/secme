@@ -1,4 +1,4 @@
-import { readCredentials } from './utils/credentials';
+import { readCredentials, writeCredentials } from './utils/credentials';
 
 import {
   askForCredential,
@@ -46,7 +46,8 @@ const start = async () => {
     case 'add':
       {
         const newCredential = await askForCredential();
-        console.log(newCredential);
+        writeCredentials(newCredential);
+        console.log('New Credential is added.');
       }
       break;
   }
