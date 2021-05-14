@@ -1,5 +1,5 @@
 import { readCredentials } from './utils/credentials';
-import { printPassword } from './utils/messages';
+
 import {
   askForCredential,
   askForMainPassword,
@@ -41,7 +41,6 @@ const start = async () => {
         );
 
         console.log(selectedService);
-        printPassword(service);
       }
       break;
     case 'add':
