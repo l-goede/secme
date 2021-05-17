@@ -1,4 +1,5 @@
-import { printPassword } from './utils/messages';
+import { readCredentials, writeCredentials } from './utils/credentials';
+
 import {
   askForCredential,
   askForMainPassword,
@@ -6,6 +7,7 @@ import {
   chooseService,
 } from './utils/questions';
 import { isMainPasswordValid } from './utils/validation';
+import CryptoJS from 'crypto-js';
 
 // Further possibly version
 // const mainPassword = await askForMainPassword();
@@ -30,14 +32,28 @@ const start = async () => {
   switch (command) {
     case 'list':
       {
-        const service = await chooseService(['Github', 'Google', 'Codewars']);
-        printPassword(service);
+        const credentials = await readCredentials();
+        const credentialServices = credentials.map(
+          (credential) => credential.service
+        );
+        const service = await chooseService(credentialServices);
+        const selectedService = credentials.find(
+          (credential) => credential.service === service
+        );
+        if (selectedService !== undefined) {
+          selectedService.password = CryptoJS.AES.decrypt(
+            selectedService.password,
+            mainPassword
+          ).toString(CryptoJS.enc.Utf8);
+          console.log(selectedService);
+        }
       }
       break;
     case 'add':
       {
         const newCredential = await askForCredential();
-        console.log(newCredential);
+        writeCredentials(newCredential, mainPassword);
+        console.log('New Credential is added.');
       }
       break;
   }
