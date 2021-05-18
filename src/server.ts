@@ -1,4 +1,5 @@
 import { readCredentials, writeCredentials } from './utils/credentials';
+import dotenv from 'dotenv';
 
 import {
   askForCredential,
@@ -18,9 +19,13 @@ import CryptoJS from 'crypto-js';
 //   console.log('Is valid');
 // }
 // start();
+dotenv.config();
+console.log(process.env.MONGO_URL);
 
 // "While" solution
 const start = async () => {
+  // await connectDatabase(databaseURI);
+
   let mainPassword = await askForMainPassword();
   while (!isMainPasswordValid(mainPassword)) {
     console.log('Is invalid');

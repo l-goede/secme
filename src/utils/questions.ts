@@ -22,6 +22,7 @@ export const chooseCommand = async (): Promise<Command> => {
       { name: 'Add new credential', value: 'add' },
     ],
   });
+  console.log(answers.command);
   return answers.command;
 };
 
