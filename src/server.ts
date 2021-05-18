@@ -1,6 +1,6 @@
 import { readCredentials, writeCredentials } from './utils/credentials';
 import dotenv from 'dotenv';
-import { connectDatabase } from './utils/database';
+import { connectDatabase, disconnectDatabase } from './utils/database';
 
 import {
   askForCredential,
@@ -60,11 +60,12 @@ const start = async () => {
     case 'add':
       {
         const newCredential = await askForCredential();
-        writeCredentials(newCredential, mainPassword);
+        await writeCredentials(newCredential, mainPassword);
         console.log('New Credential is added.');
       }
       break;
   }
+  await disconnectDatabase();
 };
 
 start();
