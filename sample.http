@@ -1,0 +1,4 @@
+
+
+###
+GET https://localhost:6000/api/credentials HTTP/1.1
