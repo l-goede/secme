@@ -6,7 +6,6 @@ import { chooseService } from './questions';
 export const readCredentials = async (): Promise<Credential[]> => {
   return await getCredentialsCollection()
     .find({})
-    .collation({ locale: 'en' })
     .sort({ service: 1 })
     .toArray();
 };
