@@ -3,8 +3,9 @@ dotenv.config();
 
 import express from 'express';
 import { connectDatabase } from './utils/database';
-import { readCredentials } from './utils/credentials';
+import { readCredentials, writeCredential } from './utils/credentials';
 
+// Check if connection to databse exists
 if (process.env.MONGO_URL === undefined) {
   throw new Error('Missing env MONGO_URL');
 }
@@ -12,15 +13,17 @@ if (process.env.MONGO_URL === undefined) {
 const app = express();
 const port = 5000;
 
-app.use(express.json();
+app.use(express.json());
 
 app.get('/api/credentials', async (_request, response) => {
   const credentials = await readCredentials();
   response.json(credentials);
 });
 
-app.post('/api/credential', (_request, response) => {
-  response.send('Add new credential');
+app.post('/api/credentials', async (request, response) => {
+  const credentials = await request.body;
+  writeCredential(credentials);
+  response.json(request.body);
 });
 
 connectDatabase(process.env.MONGO_URL).then(() => {

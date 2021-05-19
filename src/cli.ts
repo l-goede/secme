@@ -39,7 +39,7 @@ const start = async () => {
         if (command === 'list') {
           selectedCredential.password = CryptoJS.AES.decrypt(
             selectedCredential.password,
-            mainPassword
+            'mainPassword'
           ).toString(CryptoJS.enc.Utf8);
           console.log(selectedCredential);
         } else {
@@ -57,7 +57,7 @@ const start = async () => {
     case 'add':
       {
         const newCredential = await askForCredential();
-        await writeCredential(mainPassword, newCredential);
+        await writeCredential(newCredential);
         console.log('new credential added');
       }
 

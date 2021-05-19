@@ -12,9 +12,9 @@ POST http://localhost:5000/api/credentials HTTP/1.1
 Content-Type: application/json
 
 {
-  "service": "MyService",
-  "username": "BobBoson",
-  "password": "supersecret9000"
+  "service": "Luise",
+  "username": "Luise",
+  "password": "Luise"
 }
 
 ### Delete a credential

@@ -11,12 +11,11 @@ export const readCredentials = async (): Promise<Credential[]> => {
 };
 
 export const writeCredential = async (
-  mainPassword: string,
   newCredential: Credential
 ): Promise<void> => {
   newCredential.password = CryptoJS.AES.encrypt(
     newCredential.password,
-    mainPassword
+    'mainPassword'
   ).toString();
   await getCredentialsCollection().insertOne(newCredential);
 };
