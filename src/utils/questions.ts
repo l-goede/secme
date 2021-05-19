@@ -1,8 +1,8 @@
-import inquirer from 'inquirer';
-import { Command, Credential } from '../types';
+import inqurirer from 'inquirer';
+import type { Command, Credential } from '../types';
 
 export const askForMainPassword = async (): Promise<string> => {
-  const answers = await inquirer.prompt<{ mainPassword: string }>([
+  const answers = await inqurirer.prompt<{ mainPassword: string }>([
     {
       type: 'password',
       name: 'mainPassword',
@@ -13,12 +13,13 @@ export const askForMainPassword = async (): Promise<string> => {
 };
 
 export const chooseCommand = async (): Promise<Command> => {
-  const answers = await inquirer.prompt<{ command: Command }>({
+  const answers = await inqurirer.prompt<{ command: Command }>({
     type: 'list',
     name: 'command',
     message: 'What do you want to do?',
     choices: [
       { name: 'List all credentials', value: 'list' },
+      { name: 'Delete a credential', value: 'delete' },
       { name: 'Add new credential', value: 'add' },
     ],
   });
@@ -26,21 +27,21 @@ export const chooseCommand = async (): Promise<Command> => {
 };
 
 export const chooseService = async (services: string[]): Promise<string> => {
-  const answers = await inquirer.prompt<{ service: string }>({
+  const answers = await inqurirer.prompt<{ service: string }>({
     type: 'list',
     name: 'service',
-    message: 'Please choose service',
+    message: 'Please choose a service',
     choices: services,
   });
   return answers.service;
 };
 
 export const askForCredential = async (): Promise<Credential> => {
-  const answers = await inquirer.prompt<Credential>([
+  const answers = await inqurirer.prompt<Credential>([
     {
       type: 'input',
-      name: 'credential',
-      message: 'Enter new credential',
+      name: 'service',
+      message: 'Enter service',
     },
     {
       type: 'input',
@@ -55,3 +56,7 @@ export const askForCredential = async (): Promise<Credential> => {
   ]);
   return answers;
 };
+
+// export const chooseAction = async (): Promise<string> => {
+//   const answers = await inquirer.prompt<{ action: string }>({});
+// };
