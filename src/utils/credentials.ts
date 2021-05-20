@@ -6,18 +6,24 @@ import { chooseService } from './questions';
 export const readCredentials = async (): Promise<Credential[]> => {
   return await getCredentialsCollection()
     .find({})
-    .collation({ locale: 'en' })
     .sort({ service: 1 })
     .toArray();
 };
 
+export const readCredential = async (service: string): Promise<Credential> => {
+  const credential = await getCredentialsCollection().findOne({ service });
+  if (!credential) {
+    throw new Error('Cannot find Credential');
+  }
+  return credential;
+};
+
 export const writeCredential = async (
-  mainPassword: string,
   newCredential: Credential
 ): Promise<void> => {
   newCredential.password = CryptoJS.AES.encrypt(
     newCredential.password,
-    mainPassword
+    'mainPassword'
   ).toString();
   await getCredentialsCollection().insertOne(newCredential);
 };
