@@ -3,7 +3,12 @@ dotenv.config();
 
 import express from 'express';
 import { connectDatabase } from './utils/database';
-import { readCredentials, writeCredential } from './utils/credentials';
+import {
+  deleteCredential,
+  readCredential,
+  readCredentials,
+  writeCredential,
+} from './utils/credentials';
 
 // Check if connection to databse exists
 if (process.env.MONGO_URL === undefined) {
@@ -12,7 +17,7 @@ if (process.env.MONGO_URL === undefined) {
 
 const app = express();
 const port = 5000;
-
+// Server bekommt Fähigkeit json Daten zu verarbeiten
 app.use(express.json());
 
 app.get('/api/credentials', async (_request, response) => {
@@ -20,10 +25,21 @@ app.get('/api/credentials', async (_request, response) => {
   response.json(credentials);
 });
 
+app.get('/api/credentials/:service', async (request, response) => {
+  const credential = await readCredential(request.params.service);
+  response.json(credential);
+});
+
 app.post('/api/credentials', async (request, response) => {
-  const credentials = await request.body;
-  writeCredential(credentials);
-  response.json(request.body);
+  await writeCredential(request.body);
+  response.json('Credential added');
+});
+
+// response ist Rückgabenachricht
+
+app.delete('/api/credentials/:service', async (request, response) => {
+  await deleteCredential(request.params.service);
+  response.send('Credential deleted ');
 });
 
 connectDatabase(process.env.MONGO_URL).then(() => {
