@@ -1,0 +1,10 @@
+img {
+  height: 10em;
+  margin-top: 3em;
+  text-align: center;
+}
+
+img:hover {
+  transform: rotate(90deg);
+  cursor: pointer;
+}
