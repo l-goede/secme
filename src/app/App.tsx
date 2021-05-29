@@ -19,10 +19,7 @@ function App(): JSX.Element {
 
   return (
     <div className={styles.App}>
-      <AppHeader
-        imageSrc="https://cdn.onlinewebfonts.com/svg/img_138267.png"
-        title="SECME"
-      />
+      <AppHeader imageSrc="" title="SECME" />
 
       <main>
         <ul>{credentialElements}</ul>
